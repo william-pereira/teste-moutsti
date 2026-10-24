@@ -9,12 +9,9 @@ O projeto cobre fluxos executados pela interface web e testes diretos da API. A 
 - **Cypress 16**: execução dos testes de interface e API.
 - **Cucumber/Gherkin**: escrita dos cenários em linguagem de negócio nos arquivos `.feature`.
 - **@badeball/cypress-cucumber-preprocessor**: integração entre Cypress e Cucumber.
-- **esbuild**: processamento e compilação dos arquivos de teste.
-- **@bahmutov/cypress-esbuild-preprocessor**: integração do esbuild com o Cypress.
 - **cypress-plugin-api**: melhora a visualização das requisições e respostas de API no Cypress.
 - **Allure Report**: gera relatórios HTML com resultados, duração, falhas e evidências da execução.
 - **allure-cypress**: integração entre o Cypress e o Allure Report.
-- **cypress-on-fix**: permite que Allure e Cucumber compartilhem os eventos do Cypress sem sobrescrever um ao outro.
 
 Todas essas dependências já estão declaradas no `package.json` e são instaladas juntas pelo npm.
 
