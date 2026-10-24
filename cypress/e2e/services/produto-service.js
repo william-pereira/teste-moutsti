@@ -48,6 +48,33 @@ class ProdutoService {
       });
     });
   }
+
+  // endpoint utilizado exclusivamente para testes no backend.feature
+  buscarProdutoPorId(produtoId) {
+    return cy.env(["apiUrl"]).then(({ apiUrl }) => {
+      return cy.request({
+        method: "GET",
+        url: `${apiUrl}/produtos/${produtoId}`,
+        failOnStatusCode: false,
+      });
+    });
+  }
+
+  // endpoint utilizado exclusivamente para testes no backend.feature
+  editarProduto(token, produtoId, novosDadosProduto) {
+    return cy.env(["apiUrl"]).then(({ apiUrl }) => {
+      return cy.request({
+        method: "PUT",
+        url: `${apiUrl}/produtos/${produtoId}`,
+        headers: {
+          authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: novosDadosProduto,
+        failOnStatusCode: false,
+      });
+    });
+  }
 }
 
 module.exports = new ProdutoService();

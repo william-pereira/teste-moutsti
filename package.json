@@ -19,7 +19,7 @@
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
       "cypress/e2e/step_definitions/*.{js,ts}",
-      "cypress/e2e/step_definitions/common/**/*.{js,ts}"
+      "cypress/e2e/step_definitions/**/**/*.{js,ts}"
     ]
   },
   "allowScripts": {

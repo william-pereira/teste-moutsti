@@ -8,27 +8,6 @@ class AutenticacaoService {
     return `${nome}${numeroAleatorio}@${dominio}`;
   }
 
-  obterToken(email) {
-    return cy
-      .env(["apiUrl", "senhaPadrao"])
-      .then(({ apiUrl, senhaPadrao }) => {
-        return cy.request({
-          method: "POST",
-          url: `${apiUrl}/login`,
-          body: {
-            email: email,
-            password: senhaPadrao,
-          },
-        });
-      })
-      .then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body.authorization).to.exist;
-
-        return response.body.authorization;
-      });
-  }
-
   // criação de usuário com email e administrador como parâmetros (para criar usuário normal e admin)
   criarUsuario(emailBase, administrador) {
     const emailCriado = this.gerarEmailAleatorio(emailBase);
@@ -57,6 +36,27 @@ class AutenticacaoService {
           });
         });
     });
+  }
+
+  obterToken(email) {
+    return cy
+      .env(["apiUrl", "senhaPadrao"])
+      .then(({ apiUrl, senhaPadrao }) => {
+        return cy.request({
+          method: "POST",
+          url: `${apiUrl}/login`,
+          body: {
+            email: email,
+            password: senhaPadrao,
+          },
+        });
+      })
+      .then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body.authorization).to.exist;
+
+        return response.body.authorization;
+      });
   }
 
   deletarUsuario(usuarioId) {

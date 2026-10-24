@@ -1,3 +1,4 @@
+@frontend
 Feature: Cenários com usuário padrão/cliente
 
   Scenario: Validar lista de compras adicionando um produto

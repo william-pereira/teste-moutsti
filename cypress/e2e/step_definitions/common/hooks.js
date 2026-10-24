@@ -1,4 +1,4 @@
-const { BeforeAll, AfterAll, After } = require("@badeball/cypress-cucumber-preprocessor");
+const { Before, After } = require("@badeball/cypress-cucumber-preprocessor");
 
 const AutenticacaoService = require("../../services/autenticacao-service");
 const produtoService = require("../../services/produto-service");
@@ -12,7 +12,14 @@ let nomeProdutoCriado;
 
 // Antes de todos os testes, cria um usuário e um produto
 
-BeforeAll(() => {
+Before({ tags: "@frontend" }, () => {
+  adminId = undefined;
+  produtoId = undefined;
+  usuarioId = undefined;
+  adminEmailCriado = undefined;
+  userEmailCriado = undefined;
+  nomeProdutoCriado = undefined;
+
   return cy
     .env(["AdminEmail", "UserEmail"])
     .then(({ AdminEmail, UserEmail }) => {
@@ -52,14 +59,11 @@ BeforeAll(() => {
     });
 });
 
-// Limpa cookies e localStorage após cada teste
-After(() => {
+// Depois do teste, exclui o produto e o usuário criado
+After({ tags: "@frontend" }, () => {
   cy.clearCookies();
   cy.clearLocalStorage();
-});
 
-// Depois do teste, exclui o produto e o usuário criado
-AfterAll(() => {
   return AutenticacaoService.obterToken(adminEmailCriado)
     .then((tokenAdmin) => {
       return produtoService.deletarProduto(tokenAdmin, produtoId);
