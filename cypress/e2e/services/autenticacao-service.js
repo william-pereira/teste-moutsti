@@ -8,6 +8,13 @@ class AutenticacaoService {
     return `${nome}${numeroAleatorio}@${dominio}`;
   }
 
+  mascararEmail(email) {
+    const [nome, dominio] = email.split("@");
+    const inicioVisivel = nome.slice(0, 3);
+
+    return `${inicioVisivel}***@${dominio}`;
+  }
+
   // criação de usuário com email e administrador como parâmetros (para criar usuário normal e admin)
   criarUsuario(emailBase, administrador) {
     const emailCriado = this.gerarEmailAleatorio(emailBase);
@@ -17,6 +24,7 @@ class AutenticacaoService {
         .request({
           method: "POST",
           url: `${apiUrl}/usuarios`,
+          log: false,
           body: {
             nome: nomeUser,
             email: emailCriado,
@@ -28,7 +36,7 @@ class AutenticacaoService {
           expect(response.status).to.eq(201);
           expect(Boolean(response.body._id)).to.eq(true);
 
-          return cy.log(`O email criado foi: ${emailCriado}`).then(() => {
+          return cy.log(`O email criado foi: ${this.mascararEmail(emailCriado)}`).then(() => {
             return {
               id: response.body._id,
               email: emailCriado,
@@ -42,18 +50,21 @@ class AutenticacaoService {
     return cy
       .env(["apiUrl", "senhaPadrao"])
       .then(({ apiUrl, senhaPadrao }) => {
-        return cy.request({
-          method: "POST",
-          url: `${apiUrl}/login`,
-          body: {
-            email: email,
-            password: senhaPadrao,
-          },
+        return cy.log("POST /login").then(() => {
+          return cy.request({
+            method: "POST",
+            url: `${apiUrl}/login`,
+            log: false,
+            body: {
+              email: email,
+              password: senhaPadrao,
+            },
+          });
         });
       })
       .then((response) => {
         expect(response.status).to.eq(200);
-        expect(response.body.authorization).to.exist;
+        expect(Boolean(response.body.authorization)).to.equal(true);
 
         return response.body.authorization;
       });

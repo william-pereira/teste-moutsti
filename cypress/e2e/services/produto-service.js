@@ -17,6 +17,7 @@ class ProdutoService {
           return cy.request({
             method: "POST",
             url: `${apiUrl}/produtos`,
+            log: false,
             headers: {
               authorization: token,
               "Content-Type": "application/json",
@@ -41,6 +42,7 @@ class ProdutoService {
       return cy.request({
         method: "DELETE",
         url: `${apiUrl}/produtos/${produtoId}`,
+        log: false,
         headers: {
           authorization: token,
           "Content-Type": "application/json",
@@ -66,6 +68,7 @@ class ProdutoService {
       return cy.request({
         method: "PUT",
         url: `${apiUrl}/produtos/${produtoId}`,
+        log: false,
         headers: {
           authorization: token,
           "Content-Type": "application/json",

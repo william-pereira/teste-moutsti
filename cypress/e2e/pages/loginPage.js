@@ -10,7 +10,7 @@ class credenciasUser {
   preencherLogin({ email, senha }) {
     cy.get(locators.LoginPage.emailInput).clear().type(email);
 
-    return cy.get(locators.LoginPage.senhaInput).clear().type(senha);
+    return cy.get(locators.LoginPage.senhaInput).clear().type(senha, { log: false });
   }
 
   clickBotaoLogin() {

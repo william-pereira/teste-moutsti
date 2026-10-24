@@ -6,14 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "allure:generate": "allure generate ./allure-results --clean",
+    "allure:open": "allure open ./allure-report",
+    "allure:serve": "allure serve ./allure-results"
   },
   "keywords": [],
   "type": "commonjs",
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "allure": "^3.22.1",
+    "allure-cypress": "^3.14.0",
     "cypress": "^16.2.0",
+    "cypress-on-fix": "^1.1.0",
     "esbuild": "^0.28.2"
   },
   "cypress-cucumber-preprocessor": {

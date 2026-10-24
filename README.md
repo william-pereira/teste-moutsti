@@ -12,6 +12,9 @@ O projeto cobre fluxos executados pela interface web e testes diretos da API. A 
 - **esbuild**: processamento e compilação dos arquivos de teste.
 - **@bahmutov/cypress-esbuild-preprocessor**: integração do esbuild com o Cypress.
 - **cypress-plugin-api**: melhora a visualização das requisições e respostas de API no Cypress.
+- **Allure Report**: gera relatórios HTML com resultados, duração, falhas e evidências da execução.
+- **allure-cypress**: integração entre o Cypress e o Allure Report.
+- **cypress-on-fix**: permite que Allure e Cucumber compartilhem os eventos do Cypress sem sobrescrever um ao outro.
 
 Todas essas dependências já estão declaradas no `package.json` e são instaladas juntas pelo npm.
 
@@ -78,6 +81,33 @@ npm run cy:run
 ```
 
 Esse comando executa todas as features pelo terminal.
+
+## Relatórios com Allure
+
+Durante a execução em modo headless, o `allure-cypress` grava os resultados na pasta `allure-results`.
+
+Primeiro, execute os testes:
+
+```bash
+npm run cy:run
+```
+
+Depois, gere e abra o relatório temporariamente no navegador:
+
+```bash
+npm run allure:serve
+```
+
+Também é possível gerar um relatório HTML permanente:
+
+```bash
+npm run allure:generate
+npm run allure:open
+```
+
+O comando `allure:generate` cria o relatório na pasta `allure-report`, enquanto `allure:open` abre esse relatório no navegador.
+
+As pastas `allure-results` e `allure-report` estão no `.gitignore`, pois são artefatos gerados durante a execução e não precisam ser versionados.
 
 ## Ambientes utilizados
 
@@ -295,7 +325,10 @@ No estado atual do projeto, a feature backend cria um administrador e um produto
 
 ## Scripts disponíveis
 
-| Comando           | Descrição                               |
-| ----------------- | --------------------------------------- |
-| `npm run cy:open` | Abre a interface interativa do Cypress. |
-| `npm run cy:run`  | Executa toda a suíte em modo headless.  |
+| Comando                   | Descrição                                                        |
+| ------------------------- | ---------------------------------------------------------------- |
+| `npm run cy:open`         | Abre a interface interativa do Cypress.                          |
+| `npm run cy:run`          | Executa toda a suíte e gera os resultados do Allure.             |
+| `npm run allure:serve`    | Gera temporariamente e abre o relatório Allure no navegador.     |
+| `npm run allure:generate` | Gera o relatório HTML na pasta `allure-report`.                  |
+| `npm run allure:open`     | Abre no navegador o relatório HTML gerado anteriormente.         |

@@ -4,7 +4,7 @@ class usuarioPage {
   preencherFormularioCadastroUsuario(dadosUsuario) {
     cy.get(locators.formularioCadastrarUsuario.nomeUser).type(dadosUsuario.nome);
     cy.get(locators.formularioCadastrarUsuario.emailUser).type(dadosUsuario.email);
-    cy.get(locators.formularioCadastrarUsuario.senhaUser).type(dadosUsuario.senha);
+    cy.get(locators.formularioCadastrarUsuario.senhaUser).type(dadosUsuario.senha, { log: false });
     cy.get(locators.formularioCadastrarUsuario.checkBoxUser).check().should("be.checked");
     cy.get(locators.formularioCadastrarUsuario.cadastrarUsuarioButton).click();
   }
